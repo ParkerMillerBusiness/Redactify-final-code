@@ -1,0 +1,72 @@
+version: 1
+
+# FORMATTERS
+
+formatters:
+
+  simple:
+    format: "%(levelname)s | %(name)s | %(message)s"
+
+  detailed:
+    format: "%(asctime)s | %(levelname)s | %(name)s | %(filename)s:%(lineno)d | %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+
+# HANDLERS
+
+handlers:
+
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: simple
+    stream: ext://sys.stdout
+
+  file_rotating:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: detailed
+    filename: logs/app.log
+    maxBytes: 5_000_000   # 5 MB per log file
+    backupCount: 5        # keep last 5 logs
+    encoding: utf-8
+
+  pii_safe_file:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: simple
+    filename: logs/events.log
+    maxBytes: 2_000_000   # 2 MB
+    backupCount: 3
+    encoding: utf-8
+
+
+# LOGGERS
+
+loggers:
+
+  app:                     # general app-level logs
+    level: INFO
+    handlers: [console, file_rotating]
+    propagate: false
+
+  api:                     # FastAPI endpoint logging
+    level: INFO
+    handlers: [console]
+    propagate: false
+
+  core:                    # regex, NER, transformation, pipeline
+    level: DEBUG
+    handlers: [file_rotating]
+    propagate: false
+
+  pii_events:              # Logs entity detections WITHOUT raw text
+    level: INFO
+    handlers: [pii_safe_file]
+    propagate: false
+
+
+# ROOT LOGGER
+
+root:
+  level: WARNING
+  handlers: [console]

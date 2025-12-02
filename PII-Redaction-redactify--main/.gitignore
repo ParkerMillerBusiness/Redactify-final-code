@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# Streamlit
+.streamlit/
+
+# Byte-compiled
+*.pkl
+
+# PyMuPDF temp
+*.x86_64
+*.dll
+*.so
+
+# OS stuff
+.DS_Store
+Thumbs.db
+
+# Uploaded test files
+data/samples/*
+data/eval/*
+
+# Logs
+*.log
+logs/

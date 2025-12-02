@@ -1,0 +1,48 @@
+version: 0.1
+
+entities:
+  PERSON_NAME:       # gets candidates from spaCy PERSON
+    action: pseudonymize
+    placeholder: "PERSON_{n}"
+    threshold: 0.75
+
+  EMAIL:             # regex-based
+    action: mask
+    mask_rules:
+      keep_domain: true
+      keep_edge_chars: 1
+    threshold: 0.60
+
+  PHONE:             # regex-based
+    action: mask
+    mask_rules:
+      mask_last: 4
+    threshold: 0.80
+
+  ADDRESS:           # gets candidates from spaCy GPE/LOC/FAC
+    action: pseudonymize
+    placeholder: "ADDRESS_{n}"
+    threshold: 0.70
+
+  DOB:               # regex + NER DATEs (heuristic)
+    action: pseudonymize
+    placeholder: "DATE_{n}"
+    threshold: 0.85
+
+  SSN_US:            # regex-based
+    action: redact
+    threshold: 0.95
+
+  CREDIT_CARD:       # regex + Luhn
+    action: redact
+    threshold: 0.95
+
+format:
+  preserve_separators: true
+
+pseudonymization:
+  scope: "per_document"
+
+logging:
+  store_text: false
+  store_spans: true

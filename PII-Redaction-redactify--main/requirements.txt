@@ -1,0 +1,33 @@
+# === Core UI ===
+streamlit==1.37.0
+
+# === API / Backend ===
+fastapi==0.110.0
+uvicorn[standard]==0.29.0
+pydantic==2.7.1
+PyYAML==6.0.1
+regex==2024.4.28
+
+# === PDF Processing ===
+PyMuPDF>=1.24.9
+
+# === NLP / spaCy ===
+spacy==3.7.4
+# SpaCy English model
+en-core-web-sm==3.7.1
+
+# === Transformers (optional if using HF models) ===
+transformers==4.40.0
+accelerate==0.28.0
+torch>=2.2.0
+
+# === OCR (optional — only needed if you will add scanned PDF support) ===
+# pytesseract==0.3.10
+# pillow==10.2.0
+
+# === Testing ===
+pytest==8.1.1
+
+# === Dev Tools ===
+black==24.3.0
+flake8==7.0.0
